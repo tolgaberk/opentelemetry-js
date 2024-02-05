@@ -371,7 +371,7 @@ export class XMLHttpRequestInstrumentation extends InstrumentationBase<XMLHttpRe
       const plugin = this;
       return function patchOpen(this: XMLHttpRequest, ...args): void {
         const method: string = args[0];
-        const url: string = args[1];
+        const url: string = parseUrl(args[1]).href;
         plugin._createSpan(this, url, method);
 
         return original.apply(this, args);
